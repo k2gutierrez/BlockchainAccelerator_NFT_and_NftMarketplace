@@ -71,7 +71,7 @@ contract NFTMock is ERC721A, Ownable, ReentrancyGuard {
         uint256 startTokenId,
         uint256 quantity
     ) internal virtual override {
-        if (i_soulbound == true) {
+        if (i_soulbound) {
             if (from != address(0) && to != address(0)) revert NFTMock__NftIsSoulbound();
         }
         super._beforeTokenTransfers(from, to, startTokenId, quantity);
