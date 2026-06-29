@@ -26,7 +26,7 @@ Users can mint tokens directly from the `NFTMock` contract, which enforces rules
 
 ### Architecture Diagram
 
-![NFT Market Place Diagram](./images/diagram.png) *(Note: Add your custom architectural diagram here)*
+![NFT Market Place Diagram](./images/diagram.png)
 
 [NFTMarketPlace.sol](./src/NFTMarketPlace.sol) - Main Marketplace Logic
 
