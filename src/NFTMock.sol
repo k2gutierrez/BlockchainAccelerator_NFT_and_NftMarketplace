@@ -5,6 +5,11 @@ import { ERC721A } from "@ERC721A/ERC721A.sol";
 import { Ownable } from "@Openzeppelin/contracts/access/Ownable.sol";
 import { ReentrancyGuard } from "@Openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
+/**
+ * @title NFT Mock
+ * @author Carlos Gutiérrez
+ * @notice Mock NFT ERC721A for tests
+ */
 contract NFTMock is ERC721A, Ownable, ReentrancyGuard {
 
     error NFTMock__SoldOut();

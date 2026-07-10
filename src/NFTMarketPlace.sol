@@ -5,6 +5,11 @@ import { Ownable } from "@Openzeppelin/contracts/access/Ownable.sol";
 import { IERC721A } from "@ERC721A/IERC721A.sol";
 import { ReentrancyGuard } from "@Openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
+/**
+ * @title NFT Marketplace
+ * @author Carlos Gutiérrez
+ * @notice NFT marketplace with fee per purchase
+ */
 contract NFTMarketPlace is Ownable, ReentrancyGuard {
     
     error NFTMarketPlace__YouDontOwnTheToken();
