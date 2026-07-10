@@ -31,17 +31,27 @@ contract NFTMock is ERC721A, Ownable, ReentrancyGuard {
     }
 
     // Only Owner functions
+    /**
+     * @dev Set Nft price
+     * @param _price new price
+     */
     function setNFTPrice(uint256 _price) external onlyOwner {
         if (_price == getNftPrice()) revert NFTMock__PriceMustBeDifferent();
         s_nftPrice = _price;
     }
 
+    /**
+     * @dev Set max per wallet allowed - only owner
+     */
     function setMaxPerWalletAllowed(uint8 newAmount) external onlyOwner {
         if (newAmount > 255) revert NFTMock__CannotSetMoreThan255();
         if (newAmount == getMaxAmountToPurchasePerWallet()) revert NFTMock__CannotBeSameValue();
         s_maxAmountPerWallet = newAmount;
     }
 
+    /**
+     * @dev Only owner function to withdraw balance
+     */
     function withdrawBalance() external onlyOwner nonReentrant {
         if (address(this).balance == 0) revert NFTMock__NoBalanceInContract();
         uint256 balanceToWithdraw = address(this).balance;
@@ -52,7 +62,7 @@ contract NFTMock is ERC721A, Ownable, ReentrancyGuard {
 
     // General functions
     /**
-     * 
+     * @dev Mint function
      * @param _quantity Amount of NFTs to purchase
      */
     function mint(uint256 _quantity) external payable nonReentrant {
@@ -65,6 +75,13 @@ contract NFTMock is ERC721A, Ownable, ReentrancyGuard {
         _safeMint(msg.sender, _quantity);
     }
 
+    /**
+     * @dev Hook to make soulbound
+     * @param from address sending token
+     * @param to address to receive token
+     * @param startTokenId start token ID
+     * @param quantity amount to transfer
+     */
     function _beforeTokenTransfers(
         address from,
         address to,
@@ -78,20 +95,32 @@ contract NFTMock is ERC721A, Ownable, ReentrancyGuard {
     }
 
     /**
-     * NFT Collection starts with TokenId 1
+     * @dev NFT Collection starts with TokenId 1
      */
     function _startTokenId() internal view virtual override returns (uint256) {
         return 1;
     }
 
+    /**
+     * @dev Get max supply
+     * @return maxSupply
+     */
     function getMaxSupply() public view returns(uint256 maxSupply) {
         maxSupply = i_MaxSupply;
     }
 
+    /**
+     * @dev Get nft price
+     * @return nftPrice
+     */
     function getNftPrice() public view returns(uint256 nftPrice) {
         nftPrice = s_nftPrice;
     }
 
+    /**
+     * @dev Get max amount to purchase per wallet
+     * @return maxAmountPerWallet
+     */
     function getMaxAmountToPurchasePerWallet() public view returns(uint8 maxAmountPerWallet) {
         maxAmountPerWallet = s_maxAmountPerWallet;
     }

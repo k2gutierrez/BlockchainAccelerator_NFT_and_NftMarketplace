@@ -42,7 +42,7 @@ contract NFTMarketPlace is Ownable, ReentrancyGuard {
 
     // OnlyOwner functions
     /**
-     * 
+     * @dev Set fee basis Points
      * @param _feeBasisPoints specify the % of fee considering 1000 as 100%.
      */
     function setFeeBasisPoints(uint16 _feeBasisPoints) external onlyOwner {
@@ -52,7 +52,7 @@ contract NFTMarketPlace is Ownable, ReentrancyGuard {
     }
 
     /**
-     * 
+     * @dev Set Fee recipients
      * @param _feeRecipient the address that will be receiving the fees per purchase of NFT.
      */
     function setFeeRecipient(address _feeRecipient) external onlyOwner {
@@ -63,7 +63,7 @@ contract NFTMarketPlace is Ownable, ReentrancyGuard {
 
     // General functions
     /**
-     * 
+     * @dev List NFT
      * @param _nftAddress nft address of the NFT you want to list.
      * @param _tokenId token ID of the nFT you want to list.
      * @param _price price that you want to receive for your NFT, there is a 2.5 fee to marketplace which will be substracted from the price.
@@ -85,7 +85,7 @@ contract NFTMarketPlace is Ownable, ReentrancyGuard {
     }
 
     /**
-     * 
+     * @dev Buy NFT
      * @param _nftAddress nft address of the token you want to purchase.
      * @param _tokenId tokenId of the NFT you want to purchase.
      */
@@ -114,7 +114,7 @@ contract NFTMarketPlace is Ownable, ReentrancyGuard {
     }
 
     /**
-     * 
+     * @dev Cancel listing
      * @param _nftAddress nftAddress of the token you want to cancel the listing.
      * @param _tokenId tokenId of the NFT you want to cancel the listing.
      */
@@ -127,14 +127,28 @@ contract NFTMarketPlace is Ownable, ReentrancyGuard {
         emit NFTCanceled(msg.sender, _nftAddress, _tokenId);
     }
 
+    /**
+     * @dev Get fee basis points
+     * @return feeBasisPoints
+     */
     function getFeeBasisPoints() public view returns(uint256 feeBasisPoints) {
         feeBasisPoints = uint256(s_feeBasisPoints);
     }
 
+    /**
+     * @dev Get fee recipient
+     * @return recipient
+     */
     function getFeeRecipient() public view returns(address recipient) {
         recipient = s_feeRecipient;
     }
 
+    /**
+     * @dev Get NFT list Info
+     * @param _nftAddress NFT address
+     * @param _tokenId token ID
+     * @return listedNft
+     */
     function getnftListInfo(address _nftAddress, uint256 _tokenId) external view returns(Listing memory listedNft) {
         listedNft = s_listing[_nftAddress][_tokenId];
     }
